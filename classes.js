@@ -30,7 +30,17 @@
 */
 
 //Code Here
-
+class Employee {
+  constructor(first_name, last_name, email, age) {
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.email = email;
+    this.age = age;
+  }
+  makeWidget() {
+    return this.first_name +' '+ this.last_name + " Widget";
+  }
+}
 
 ////////// PROBLEM 2 //////////
 
@@ -46,7 +56,18 @@
 
   Call your new class Manager
 */
-
+class Manager extends Employee {
+  constructor(first_name, last_name, email, age){
+    super(first_name, last_name, email, age);
+    this.reports = [];
+  }   
+hire(employee){
+  this.reports.push(employee)
+}
+fire(index){
+  this.reports.splice(index, 1)
+}
+} 
 //Code Here
 
 
@@ -54,7 +75,8 @@
 
 /*
   Managers for Widget Co. get promoted when they get more employees, and get a bonus when they fire employees.
-  create a class ProgressiveManager that extends Manager.  A Progressive Manager has all of the same properties as a manager with the following additional properties:
+  create a class ProgressiveManager that extends Manager.  A Progressive Manager has all of the same properties 
+  as a manager with the following additional properties:
     - title - default 'Not a manager'
     - bonus - default 0
 
@@ -72,9 +94,31 @@
 */
 
 //Code Here
-
-
-
+class ProgressiveManager extends Manager {
+  constructor(first_name, last_name, email, age, reports){
+    super(first_name, last_name, email, age, reports)
+    this.title = 'Not a manager';
+    this.bonus = 0;
+  }
+  hire(employee) {
+    super.hire(employee)
+    let i = this.reports.length;
+    if (i >= 1 && i <=3) {
+      this.title = "Barely Manager"
+    } else if (i >= 4 && i <= 10) {
+      this.title = "Mostly Manager"
+    } else if (i >= 11 && i <= 50) {
+      this.title = "Manager"
+    } else if (i >= 51 && i <= 100) {
+      this.title = "Manager Plus"
+    } else {
+      this.title = "Bestest Manager"
+    }
+  }
+  fire() {
+    this.bonus += 100;
+  }
+}
 ////////// PROBLEM 4 - Black Diamond //////////
 
 /*
